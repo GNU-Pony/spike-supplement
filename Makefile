@@ -13,7 +13,7 @@ install: install-profile install-license
 .PHONY: install-profile
 install-profile:
 	install -dm755 -- "$(DESTDIR)$(SYSCONF)/profile.d"
-	install -m644 -- etc/profile.d/spike "$(DESTDIR)$(SYSCONF)/profile.d/spike"
+	install -m644 -- etc/profile "$(DESTDIR)$(SYSCONF)/profile.d/spike"
 
 .PHONT: install-license
 install-license:
