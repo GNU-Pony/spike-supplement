@@ -1,0 +1,78 @@
+START ---> simplify patterns ------> if looking at installed scrolls Superrepo can be 'installed' ------------> Path can be $SPIKE_PATH/Superrepo
+                               \                                                                            /                   |
+                                \--> if looking at not installed scrolls Superrepo can be 'repositories' --/                    |
+                                                                                                                               \|/
+                                                                                                       Path can be Superrepo in any configuration directory
+                                                                                                                                |
+                                                                                                                                |
+                                                                                                                               \|/
+                                                                                                for all possible Path: get unique (by real path) repository Path/*/
+                                                                                                                                |
+                                                                                                                                |
+                                                                                                                               \|/
+ add Pattern to Repo <--- yes! <--- is regex Pattern₀ in Repo? <--- got! <--- get Repo in repostories <--- got! <--- get Pattern from patterns
+        \                             \                                         \                                      /|\      |
+         \                             \---> no! ----\                           \---> empty! -----\                    |       |
+          \                                           \                                             \                   |      \|/
+           \------------------------------------------------------------------------------------------------------------/     empty!
+                                                                                                                                |
+                                                                                                                                |
+                                                                                                                               \|/
+                              map Repo to Cat to path for Repo/Cat <--- got! <--- get Cat/ in Repo <--- got! <--- get Repo from repositories
+                                                 \                                  \                                 /|\       |
+                                                  \                                  \---> empty! ----\                |        |
+                                                   \                                                   \               |       \|/
+                                                    \------------------------------------------------------------------/      empty!
+                                                                                                                                |
+                                                                                                                                |
+                                                                                                                               \|/
+   is regex Pattern₁ in Cat? <--- got! <--- get Cat from Repo <--- got! <--- get Pattern added to Repo <--- got! <--- get Repo from repositories
+         |               |                          |                                   |                              /|\      |
+         |               |                          |                                   |                               |       |
+        \|/             \|/                        \|/                                 \|/                              |       |
+        yes!            no!                       empty!                              empty!                            |       |
+         |               |                          |                                   |                               |       |
+         |               |                          |                                   |                               |       |
+        \|/              |                          |                                   |                               |      \|/
+ add Pattern to Cat -----+--------------------------+-----------------------------------+-------------------------------/     empty!
+                                                                                                                                |
+                                                                                                                                |
+                                                                                                                               \|/
+                     map content of Cat to Repo/Cat in repositories <--- got! <--- get Cat from Repo <--- got! <--- get Repo from repositories
+                                      |                                                  |                            /|\          |
+                                      |                                                  |                             |           |
+                                      |                                                 \|/                            |           |
+                                      +------------ remove Repo from repositories <--- empty!                          |           |
+                                       \                                                                               |          \|/
+                                        \------------------------------------------------------------------------------/  out of original keys!
+                                                                                                                                   |
+                                                                                                                                   |
+                                                                                                                                  \|/
+                                                                                                                  Categories is now repository map
+                                                                                                                                   |
+                                                                                                                                   |
+                                                                                                                                  \|/
+   is File a file that matches /(.+)\.scroll/? <--- found! <--- get File in Dir <--- get value Dir of Cat <--- got! <--- get Cat from Categories
+             |      \                                             \                                                          |     |
+             |       \------ no! -------\                          \--- done! ---\                                           |     |
+            \|/                          \                                        \                                          |    \|/
+            yes! ---> add \1 to Cat in Scrolls ------------------------------------------------------------------------------/   empty!
+                                                                                                                                   |
+                                                                                                                                   |
+                                                                                                                                  \|/
+ get Scroll for Cat in Scrolls <--- got! <--- get mapped Pattern in Cat <--- yes! <--- is Cat in Scrolls? <--- got! <--- get Cat from Categories
+             |                                          |                                     |                           /|\      |
+             |                                          |                                     |                            |       |
+            \|/                                        \|/                                   \|/                           |      \|/
+            got!                                      empty!                                 no!                           |     empty!
+             |                                          |                                     |                            |       |
+             |                                          |                                     |                            |       |
+            \|/                                         |                                     |                            |      \|/
+is regex Pattern₂ in Scroll? ---> no! ------------------+-------------------------------------+----------------------------/     STOP
+               \                                                                     /
+                \---------> yes! ---> report Repo/Cat/Scroll for Scroll in Cat -----/
+
+
+
+simplify patterns() ---> discard all with more than 2 '/' ---> prepend '/' until all have 2 '/' ----> split by '/' ---> RETURN
+
