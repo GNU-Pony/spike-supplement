@@ -1,0 +1,18 @@
+START ---> queue $SPIKE_PATH  ---> get repostories ---> queue all repositories ---> is queue empty? ---> no! ---> poll Repo from queue ---> git pull Repo
+                                                                                        /|\      \                                                 |
+                                                                                         |        \----> yes! ---> STOP                            |
+                                                                                         |                                                         |
+                                                                                         \---------------------------------------------------------/
+
+
+queue(Path) ---> get real path of Path ---> mark real path ---> does Path/.git/frozen.spike exist? ---> no! ---> add Path to queue ----> RETURN
+                                                                                              \                                     /
+                                                                                               \------> yes! ----------------------/
+
+
+queue all(Paths) ----> get next ----> got Path! ---> is Path a directory? ----> yes! ----> get real path of Path ---> is real path marked? ---> no! ----> queue Path
+                       /|\  \                                       \                                                          \                              |
+                        |    \---> empty! ----> RETURN               \------> no! ---\                                          \----> yes! ---\              |
+                        |                                                             \                                                         \             |
+                        \-------------------------------------------------------------------------------------------------------------------------------------/
+
